@@ -17,5 +17,15 @@ def products_list(request):
     elif request.method == 'POST':
         serializer = ProductsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def product_details(request, pk):
+    try:
+        product = Products.objects.get(pk=pk)
+        serializer = ProductsSerializer(product)
+        return Response(serializer.data)
+    
+    except Products.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
