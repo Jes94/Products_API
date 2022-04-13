@@ -21,7 +21,7 @@ def products_list(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 def product_details(request, pk):
     product = get_object_or_404(Products, pk=pk)
     if request.method == 'GET':
